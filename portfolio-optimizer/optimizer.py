@@ -97,7 +97,6 @@ def _ordered_increment_array(arr_ord_numbers):
     True if the increment is possible and else False.'''
 
 
-    ind = -1
     ind_dec = 0
     ind_inc = 0
     for i in xrange(len(arr_ord_numbers)-1, 0, -1):
