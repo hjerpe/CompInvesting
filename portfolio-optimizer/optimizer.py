@@ -18,7 +18,7 @@ from itertools import permutations
 def dic_df_data(date_start, date_end, arr_stock_symbols):
     '''Returns a dictionary with keys 'open, high, low, close, volume, 
     actual_close and where each value being a data frame for every equity 
-    in arr_stock_symbols. '''
+    in arr_stock_symbols.'''
 
 
     date_time_of_day = dt.timedelta(hours=16)
@@ -155,7 +155,7 @@ def li_portfolio_metrics(nd_portfolio_value):
 
 def print_optimization(dt_start, dt_end, arr_symbols):
     '''Prints the optimal allocation w.r.t. the sharpe ratio for
-    4 equities, where the set of possible allocations ranges from
+    m equities, where the set of possible allocations ranges from
     0 to 1 by 0.1 increments.'''
 
 
