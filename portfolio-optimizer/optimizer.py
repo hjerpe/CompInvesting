@@ -72,7 +72,7 @@ def all_possible_allocations(num_equities):
     li_allocations = []
     set_duplicates = set()
     bol_new_allocation = True
-    int_clear_duplicats = 1e5
+    int_clear_duplicates = 1e5
     while bol_new_allocation:
         # Add all possible permutations of the base allocation
         arr_weights = tuple([weights[i] for i in base_allocation])
