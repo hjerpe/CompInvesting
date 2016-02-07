@@ -16,7 +16,7 @@ from itertools import permutations
 
 
 def dic_df_data(date_start, date_end, arr_stock_symbols):
-    '''Returns a dictionary with keys 'open, high, low, close, volume, 
+    '''Returns a dictionary with keys open, high, low, close, volume, 
     actual_close and where each value being a data frame for every equity 
     in arr_stock_symbols.'''
 
@@ -94,7 +94,8 @@ def _ordered_increment_array(arr_ord_numbers):
     arr_ord_numbers must start at a valid configuration (a1<=a2<=..<=an).
     
     Value: bool
-    True if the increment is possible and else False.'''
+    True if the input array is mutated and the increment is valid, and else 
+    False.'''
 
 
     ind_dec = 0
