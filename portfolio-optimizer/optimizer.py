@@ -45,8 +45,8 @@ def optimizer(date_start, date_end, arr_stock_symbols):
     best_sharpe = 0
     best_allocation = [0 for i in xrange(num_equities)]
 
-    arr_possible_allocations = all_possible_allocations(num_equities)
-    for nd_allocation in arr_possible_allocations:
+    generator_allocations = gen_possible_allocations(num_equities)
+    for nd_allocation in generator_allocations:
         nd_allocation.shape = (1, nd_prices_normalized.shape[1])
         nd_prices_weighted = nd_allocation * nd_prices_normalized
         nd_portfolio_value = nd_prices_weighted.sum(axis=1)
@@ -61,7 +61,7 @@ def optimizer(date_start, date_end, arr_stock_symbols):
     return (best_allocation, best_metrics)
 
 
-def all_possible_allocations(num_equities):
+def gen_possible_allocations(num_equities):
     '''Returns an generator of all possible allocations a1, a2, .., an such 
     that sum(ai) = 1. Each allocation is given as a np array.'''
 
