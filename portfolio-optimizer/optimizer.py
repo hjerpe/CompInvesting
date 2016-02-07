@@ -82,12 +82,12 @@ def all_possible_allocations(num_equities):
                 set_duplicates.add(allocation)
                 
         # Increment base allocation array
-        bol_new_allocation = _increment_array(base_allocation)
+        bol_new_allocation = _ordered_increment_array(base_allocation)
 
     return li_allocations
 
 
-def _increment_array(arr_ord_numbers):
+def _ordered_increment_array(arr_ord_numbers):
     '''Mutates the list of numbers [a1,..,an] such that all numbers satisfy
     a1 <= a2 <= .. <= an and sum(ai) = 10. The increment is the smallest 
     increment such that the total order is satisfied.
