@@ -59,32 +59,27 @@ def optimizer(date_start, date_end, arr_stock_symbols):
             best_allocation = nd_allocation
 
     return (best_allocation, best_metrics)
-    
+
 
 def all_possible_allocations(num_equities):
-    '''Returns an array of all possible allocations a1, a2, .., an such that
-    sum(ai) = 1. Each allocation is given as a np array.'''
+    '''Returns an generator of all possible allocations a1, a2, .., an such 
+    that sum(ai) = 1. Each allocation is given as a np array.'''
 
 
     weights = [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1]
     base_allocation = [0 for i in xrange(num_equities)]
     base_allocation[-1] = 10
     li_allocations = []
-    set_duplicates = set()
     bol_new_allocation = True
     while bol_new_allocation:
         # Add all possible permutations of the base allocation
         arr_weights = tuple([weights[i] for i in base_allocation])
-        gen_weights = permutations(arr_weights)
+        gen_weights = set(permutations(arr_weights))
         for allocation in gen_weights:
-            if allocation not in set_duplicates:
-                li_allocations.append(np.array(allocation))
-                set_duplicates.add(allocation)
+            yield np.array(allocation)
                 
         # Increment base allocation array
         bol_new_allocation = _ordered_increment_array(base_allocation)
-
-    return li_allocations
 
 
 def _ordered_increment_array(arr_ord_numbers):
