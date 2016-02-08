@@ -74,15 +74,15 @@ def gen_possible_allocations(num_equities):
     bol_new_allocation = True
     int_clear_duplicates = 1e5
     while bol_new_allocation:
+        possible_permutations = permutations(xrange(num_equities))
         # Add all possible permutations of the base allocation
-        arr_weights = tuple([weights[i] for i in base_allocation])
-        gen_weights = permutations(arr_weights)
-        for allocation in gen_weights:
+        for perm in possible_permutations:
+            allocation = tuple([weights[base_allocation[i]] for i in perm])
             if allocation not in set_duplicates:
                 set_duplicates.add(allocation)
                 yield np.array(allocation)
-        if len(set_duplicates) > int_clear_duplicates: 
-            set_duplicates.clear()
+                if len(set_duplicates) > int_clear_duplicates: 
+                    set_duplicates.clear()
                 
         # Increment base allocation array
         bol_new_allocation = _ordered_increment_array(base_allocation)
