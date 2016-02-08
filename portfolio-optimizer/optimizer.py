@@ -122,7 +122,7 @@ def _ordered_increment_array(arr_ord_numbers):
 
     arr_ord_numbers[ind_inc] += 1
     arr_ord_numbers[ind_dec] -= 1
-    # Shortcut since we decrease from tail and start increase from tail+1
+    # Shortcut since we decrease from tail and start increase from tail-1
     if arr_ord_numbers[ind_inc] + arr_ord_numbers[ind_dec] == 10: return True
     
     # (If no shortcut). Change all numbers to the left of the increased position
