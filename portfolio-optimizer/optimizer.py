@@ -134,8 +134,8 @@ def _ordered_increment_array(arr_ord_numbers):
 
 
 def li_portfolio_metrics(nd_portfolio_value):
-    '''Returns an array containing given an np array of portfolio value at over
-    time. The returned array contains,
+    '''Returns an array containing, given an np array of portfolio values 
+    over time, 
     -The cumulative return of the total portfolio.
     -The average daily return of the total portfolio.
     -The standard deviation of the daily returns.
@@ -168,6 +168,7 @@ def print_optimization(dt_start, dt_end, arr_symbols):
     print("End Date: {v}".format(v=str_dt_end))
     print("Symbols: {v}".format(v=arr_symbols))
     print("Optimal Allocations: {v}".format(v=allocations))
+
     print("Sharpe Ratio (Rf = 0): {v}".format(v=arr_metrics[3]))
     print("Volatility (stdev daily returns): {v}".format(v=arr_metrics[2]))
     print("Average return: {v}".format(v=arr_metrics[1]))
