@@ -102,6 +102,7 @@ def _ordered_increment_array(arr_ord_numbers):
 
     ind_dec = 0
     ind_inc = 0
+    # Get increase and decrease indices starting from tail and going to head
     for i in xrange(len(arr_ord_numbers)-1, 0, -1):
         if arr_ord_numbers[i] > arr_ord_numbers[i-1]:
             ind_dec = i
@@ -121,8 +122,11 @@ def _ordered_increment_array(arr_ord_numbers):
 
     arr_ord_numbers[ind_inc] += 1
     arr_ord_numbers[ind_dec] -= 1
+    # Shortcut since we decrease from tail and start increase from tail+1
     if arr_ord_numbers[ind_inc] + arr_ord_numbers[ind_dec] == 10: return True
     
+    # (If no shortcut). Change all numbers to the left of the increased position
+    # to the smallest total order configuration (a1<=..<=an)
     s = sum(arr_ord_numbers[0:ind_inc])
     for i in range(ind_inc+1, len(arr_ord_numbers)):
         s += arr_ord_numbers[ind_inc]
