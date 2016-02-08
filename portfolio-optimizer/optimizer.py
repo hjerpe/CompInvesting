@@ -62,8 +62,9 @@ def optimizer(date_start, date_end, arr_stock_symbols):
 
 
 def gen_possible_allocations(num_equities):
-    '''Returns an generator of all possible allocations a1, a2, .., an such 
-    that sum(ai) = 1. Each allocation is given as a np array.'''
+    '''Returns a generator which yields all possible allocations 
+    a1,a2,..,an such that sum(ai) = 1. Each allocation is given as a np array.
+    '''
 
 
     weights = [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1]
