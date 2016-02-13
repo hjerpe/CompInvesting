@@ -177,3 +177,35 @@ def print_optimization(dt_start, dt_end, arr_symbols):
     print("Volatility (stdev daily returns): {v}".format(v=arr_metrics[2]))
     print("Average return: {v}".format(v=arr_metrics[1]))
     print("Cumulative return: {v}".format(v=arr_metrics[0]))
+
+
+def plot_performance(dt_start, dt_end, arr_stock_symbols, nd_weights):
+    ''''Plot the performance of each individual equity together with the
+    portfolio.'''
+
+
+    dic_df = dic_df_data(dt_start, dt_end, arr_stock_symbols)
+    nd_prices = dic_df["close"].values
+    nd_prices_normalized = nd_prices / nd_prices[0, :]
+
+    nd_weights.shape = (1, nd_prices_normalized.shape[1])
+    nd_prices_weighted = nd_weights * nd_prices_normalized
+    nd_portfolio_value = nd_prices_weighted.sum(axis=1)
+    nd_portfolio_value = nd_portfolio_value / nd_portfolio_value[0]
+    arr_stock_symbols.append("portfolio")
+    print(nd_prices_weighted)
+    print(nd_prices_weighted.shape)
+
+    dt_timeofday = dt.timedelta(hours=16)
+    ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
+
+    plt.clf()
+    plt.xticks(rotation=70)
+    plt.plot(ldt_timestamps, nd_prices_normalized)
+    plt.plot(ldt_timestamps, nd_portfolio_value)
+    plt.legend(arr_stock_symbols)
+    plt.ylabel('Adjusted Close')
+    plt.xlabel('Date')
+    plt.show()
+    #plt.savefig('adjustedclose.pdf', format='pdf')
+

@@ -1,4 +1,4 @@
-from optimizer import optimizer, print_optimization
+from optimizer import optimizer, print_optimization, plot_performance
 import datetime as dt
 
 
@@ -23,7 +23,7 @@ def print_and_test_optimization():
     dt_start = dt.datetime(2011, 1, 1)
     dt_end = dt.datetime(2011, 12, 31)
     print_optimization(dt_start, dt_end, arr_symbols)
-    allocations, arr_met= optimizer(dt_start, dt_end, arr_symbols)
+    allocations, arr_met = optimizer(dt_start, dt_end, arr_symbols)
     v1 = 1.02828403099
     v2 = 0.0101467067654
     v3 = 0.000657261102001
@@ -32,6 +32,7 @@ def print_and_test_optimization():
     print("\nDeviations from truth:")
     check_metrics(arr_met[3], arr_met[2], arr_met[1], arr_met[0], allocations,
             v1, v2, v3, v4, v5)
+    plot_performance(dt_start, dt_end, arr_symbols, allocations)
     
     print("\nSecond test")
     arr_symbols = ['AXP', 'HPQ', 'IBM', 'HNZ']
@@ -47,3 +48,4 @@ def print_and_test_optimization():
     print("\nDeviations from truth:")
     check_metrics(arr_met[3], arr_met[2], arr_met[1], arr_met[0], allocations,
             v1, v2, v3, v4, v5)
+    plot_performance(dt_start, dt_end, arr_symbols, allocations)
