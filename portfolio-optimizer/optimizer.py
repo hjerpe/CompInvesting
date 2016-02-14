@@ -200,6 +200,6 @@ def plot_performance(dt_start, dt_end, arr_stock_symbols, nd_weights):
     plt.plot(ldt_timestamps, nd_prices_normalized)
     plt.plot(ldt_timestamps, nd_portfolio_value)
     plt.legend(arr_stock_symbols)
-    plt.ylabel('Adjusted Close')
+    plt.ylabel('Normalized Close')
     plt.xlabel('Date')
     plt.show()
