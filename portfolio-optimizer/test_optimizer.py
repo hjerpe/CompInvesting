@@ -1,8 +1,10 @@
+from __future__ import division
 from optimizer import optimizer, print_optimization, plot_performance
 import datetime as dt
 
 
-def print_and_test_optimization(dt_start, dt_end, arr_stock_symbols,
+def print_and_test_optimization(dt_start, dt_end, 
+        arr_stock_symbols, weight_increment,
         true_sharpe, true_vol, true_average_ret, true_cum_ret, true_allocation):
 
     def check_metrics(
@@ -28,7 +30,7 @@ def print_and_test_optimization(dt_start, dt_end, arr_stock_symbols,
         dt_start=str_start_dt,
         dt_end=str_end_dt,
         symbols=str_stock_symbols))
-    allocations, arr_met = optimizer(dt_start, dt_end, arr_stock_symbols)
+    allocations, arr_met = optimizer(dt_start, dt_end, arr_stock_symbols, 0.1)
     check_metrics(arr_met[3], arr_met[2], arr_met[1], arr_met[0], allocations,
             true_sharpe, true_vol, true_average_ret, true_cum_ret, 
             true_allocation)
@@ -36,10 +38,10 @@ def print_and_test_optimization(dt_start, dt_end, arr_stock_symbols,
     
 
 
-def main(dic_input, dic_true_metrics):
+def main(dic_inputs, dic_true_metrics):
 
-    print_and_test_optimization(dic_input["dt_start"], dic_input["dt_end"], 
-            dic_input["arr_stock_symbols"], 
+    print_and_test_optimization(dic_inputs["dt_start"], dic_inputs["dt_end"], 
+            dic_inputs["arr_stock_symbols"], dic_inputs["weight_increment"],
             dic_true_metrics["sharpe"], dic_true_metrics["vol"],
             dic_true_metrics["average_ret"], dic_true_metrics["cum_ret"],
             dic_true_metrics["allocation"])
@@ -52,7 +54,8 @@ if __name__ == "__main__":
     arr_dic_inputs.append(
             {"dt_start": dt.datetime(2011, 1, 1),
             "dt_end": dt.datetime(2011, 12, 31),
-            "arr_stock_symbols": ["AAPL", "GLD", "GOOG", "XOM"]}
+            "arr_stock_symbols": ["AAPL", "GLD", "GOOG", "XOM"],
+            "weight_increment": 0.1}
             )
     arr_dic_true_metrics.append(
             {"sharpe": 1.02828403099,
@@ -65,7 +68,8 @@ if __name__ == "__main__":
     arr_dic_inputs.append(
             {"dt_start": dt.datetime(2010, 1, 1),
             "dt_end": dt.datetime(2010, 12, 31),
-            "arr_stock_symbols": ['AXP', 'HPQ', 'IBM', 'HNZ']}
+            "arr_stock_symbols": ['AXP', 'HPQ', 'IBM', 'HNZ'],
+            "weight_increment": 0.1}
             )
     arr_dic_true_metrics.append(
             {"sharpe": 1.29889334008,
@@ -74,6 +78,6 @@ if __name__ == "__main__":
             "cum_ret": 1.1960583568,
             "allocation": [0, 0, 0, 1]}
             )
-    for dic_input, dic_true_metrics in zip(arr_dic_inputs,
+    for dic_inputs, dic_true_metrics in zip(arr_dic_inputs,
             arr_dic_true_metrics):
-        main(dic_input, dic_true_metrics)
+        main(dic_inputs, dic_true_metrics)

@@ -12,7 +12,7 @@ import datetime as dt
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from itertools import permutations
+from itertools import permutations, combinations
 import sys
 sys.path.append("./../../Combinatorics")
 from combinatorics import order_increment_array
@@ -33,7 +33,7 @@ def dic_df_data(date_start, date_end, arr_stock_symbols):
     return dict(zip(arr_keys, arr_dfs_data))
 
 
-def optimizer(date_start, date_end, arr_stock_symbols):
+def optimizer(date_start, date_end, arr_stock_symbols, weight_increment):
     '''Returns an optimal equity allocation over the equities in
     arr_stock_symbols w.r.t. the sharpe ratio.'''
 
@@ -48,7 +48,8 @@ def optimizer(date_start, date_end, arr_stock_symbols):
     best_sharpe = 0
     best_allocation = [0 for i in xrange(num_equities)]
 
-    generator_allocations = gen_possible_allocations(num_equities)
+    generator_allocations = gen_possible_allocations(num_equities, 
+            weight_increment)
     for nd_allocation in generator_allocations:
         nd_allocation.shape = (1, nd_prices_normalized.shape[1])
         nd_prices_weighted = nd_allocation * nd_prices_normalized
@@ -64,15 +65,20 @@ def optimizer(date_start, date_end, arr_stock_symbols):
     return (best_allocation, best_metrics)
 
 
-def gen_possible_allocations(num_equities):
+def gen_possible_allocations(num_equities, weight_increment):
     '''Returns a generator which yields all possible allocations 
     a1,a2,..,an such that sum(ai) = 1. Each allocation is given as a np array.
+    weight_increment must be on form 1/q where q is an integer.
     '''
 
 
-    weights = [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1]
+    num_weight_increments = int(1 / weight_increment)
+    weights = np.array([i for i in xrange(num_weight_increments+1)])
+    weights = weights * weight_increment
+
     base_allocation = [0 for i in xrange(num_equities)]
-    base_allocation[-1] = 10
+    base_allocation[-1] = num_weight_increments
+
     set_duplicates = set()
     bol_new_allocation = True
     int_clear_duplicates = 1e5
@@ -88,7 +94,8 @@ def gen_possible_allocations(num_equities):
                     set_duplicates.clear()
                 
         # Increment base allocation array
-        bol_new_allocation = order_increment_array(base_allocation)
+        bol_new_allocation = order_increment_array(base_allocation,
+                num_weight_increments)
 
 
 def arr_portfolio_metrics(nd_portfolio_value):
