@@ -13,6 +13,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from itertools import permutations
+import sys
+sys.path.append("./../../Combinatorics")
+from combinatorics import order_increment_array
 
 
 def dic_df_data(date_start, date_end, arr_stock_symbols):
@@ -85,55 +88,7 @@ def gen_possible_allocations(num_equities):
                     set_duplicates.clear()
                 
         # Increment base allocation array
-        bol_new_allocation = _ordered_increment_array(base_allocation)
-
-
-def _ordered_increment_array(arr_ord_numbers):
-    '''Mutates the list of numbers [a1,..,an] such that all numbers satisfy
-    a1 <= a2 <= .. <= an and sum(ai) = 10. The increment is the smallest 
-    increment such that the total order is satisfied.
-    arr_ord_numbers must start at a valid configuration (a1<=a2<=..<=an).
-    
-    Value: bool
-    True if the input array is mutated and the increment is valid, and else 
-    False.'''
-
-
-    ind_dec = 0
-    ind_inc = 0
-    # Get increase and decrease indices starting from tail and going to head
-    for i in xrange(len(arr_ord_numbers)-1, 0, -1):
-        if arr_ord_numbers[i] > arr_ord_numbers[i-1]:
-            ind_dec = i
-            break
-    for j in xrange(ind_dec-1, -1, -1):
-        ind_inc = j
-        if arr_ord_numbers[ind_dec] - arr_ord_numbers[ind_inc] > 1:
-            break
-
-    # Check if relation a1 <= a2 <=... <= an holds after increment
-    if ind_inc == 0:
-        value_first_numbers = arr_ord_numbers[0]+1
-        last_value = 10-(value_first_numbers * (len(arr_ord_numbers)-1))
-
-        if value_first_numbers > last_value:
-            return False
-
-    arr_ord_numbers[ind_inc] += 1
-    arr_ord_numbers[ind_dec] -= 1
-    # Shortcut since we decrease from tail and start increase from tail-1
-    if arr_ord_numbers[ind_inc] + arr_ord_numbers[ind_dec] == 10: return True
-    
-    # (If no shortcut). Change all numbers to the left of the increased position
-    # to the smallest total order configuration (a1<=..<=an)
-    s = sum(arr_ord_numbers[0:ind_inc])
-    for i in range(ind_inc+1, len(arr_ord_numbers)):
-        s += arr_ord_numbers[ind_inc]
-        if i == len(arr_ord_numbers)-1:
-            arr_ord_numbers[i] = 10 - s
-        else:
-            arr_ord_numbers[i] = arr_ord_numbers[ind_inc]
-    return True
+        bol_new_allocation = order_increment_array(base_allocation)
 
 
 def arr_portfolio_metrics(nd_portfolio_value):
