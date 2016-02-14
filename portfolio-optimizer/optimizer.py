@@ -51,7 +51,7 @@ def optimizer(date_start, date_end, arr_stock_symbols):
         nd_prices_weighted = nd_allocation * nd_prices_normalized
         nd_portfolio_value = nd_prices_weighted.sum(axis=1)
 
-        portfolio_metrics = li_portfolio_metrics(nd_portfolio_value)
+        portfolio_metrics = arr_portfolio_metrics(nd_portfolio_value)
         curr_sharpe = portfolio_metrics[-1]
         if curr_sharpe > best_sharpe:
             best_metrics = portfolio_metrics
@@ -70,7 +70,6 @@ def gen_possible_allocations(num_equities):
     weights = [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1]
     base_allocation = [0 for i in xrange(num_equities)]
     base_allocation[-1] = 10
-    li_allocations = []
     set_duplicates = set()
     bol_new_allocation = True
     int_clear_duplicates = 1e5
@@ -137,7 +136,7 @@ def _ordered_increment_array(arr_ord_numbers):
     return True
 
 
-def li_portfolio_metrics(nd_portfolio_value):
+def arr_portfolio_metrics(nd_portfolio_value):
     '''Returns an array containing, given an np array of portfolio values 
     over time, 
     -The cumulative return of the total portfolio.
