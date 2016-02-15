@@ -15,7 +15,8 @@ import pandas as pd
 from itertools import permutations, combinations
 import sys
 sys.path.append("./../../Combinatorics")
-from combinatorics import order_increment_array
+from combinatorics import order_increment_array, \
+        ordered_selection_without_repetition
 
 
 def dic_df_data(date_start, date_end, arr_stock_symbols):
@@ -76,17 +77,28 @@ def gen_possible_allocations(num_equities, weight_increment):
     weights = np.array([i for i in xrange(num_weight_increments+1)])
     weights = weights * weight_increment
 
-    base_allocation = [0 for i in xrange(num_equities)]
+    base_allocation = np.array([0 for i in xrange(num_equities)])
     base_allocation[-1] = num_weight_increments
 
     set_duplicates = set()
     bol_new_allocation = True
     int_clear_duplicates = 1e5
+
+    # Yield all possible non zero allocation weight combinations
     while bol_new_allocation:
-        possible_permutations = permutations(xrange(num_equities))
-        # Add all possible permutations of the base allocation
+
+        # Form all possible non zero weight selections
+        non_zero_weight_ind = [x for x in base_allocation if x > 0]
+        possible_permutations = ordered_selection_without_repetition(
+                num_equities, len(non_zero_weight_ind))
+
         for perm in possible_permutations:
-            allocation = tuple([weights[base_allocation[i]] for i in perm])
+            allocation = [0 for i in xrange(num_equities)]
+            # Add all non-zero weight allocations
+            for weight_ind, alloc_ind in enumerate(perm):
+                allocation[alloc_ind] = weights[non_zero_weight_ind[weight_ind]]
+
+            allocation = tuple(allocation)
             if allocation not in set_duplicates:
                 set_duplicates.add(allocation)
                 yield np.array(allocation)
@@ -96,6 +108,7 @@ def gen_possible_allocations(num_equities, weight_increment):
         # Increment base allocation array
         bol_new_allocation = order_increment_array(base_allocation,
                 num_weight_increments)
+
 
 
 def arr_portfolio_metrics(nd_portfolio_value):
