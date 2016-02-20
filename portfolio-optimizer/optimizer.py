@@ -116,7 +116,7 @@ def arr_portfolio_metrics(nd_portfolio_value):
     -The cumulative return of the total portfolio.
     -The average daily return of the total portfolio.
     -The standard deviation of the daily returns.
-    -The sharpe ratio (assuming 252 trading days/y, risk free rate = 0
+    -The sharpe ratio (assuming 252 trading days/y, risk free rate = 0,
      and that stock returns follows a lognormal distribution).'''
 
 
