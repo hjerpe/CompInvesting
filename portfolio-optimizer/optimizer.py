@@ -6,31 +6,31 @@ Assessing an optimal equity allocation w.r.t. the Sharpe Ratio.
 from __future__ import print_function, division
 import QSTK.qstkutil.qsdateutil as du
 import QSTK.qstkutil.tsutil as tsu
-import QSTK.qstkutil.DataAccess as da
 
 import datetime as dt
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import sys
 sys.path.append("./../../Combinatorics")
 from combinatorics import order_increment_array, \
         ordered_selection_without_repetition
+sys.path.append("./../get-market-data")
+from get_market_data import dic_df_data
 
 
-def dic_df_data(date_start, date_end, arr_stock_symbols):
-    '''Returns a dictionary with keys open, high, low, close, volume,
-    actual_close and where each value being a data frame for every 
-    equity in arr_stock_symbols.'''
-
-
-    date_time_of_day = dt.timedelta(hours=16)
-    arr_date_time_stamps = du.getNYSEdays(date_start, date_end, date_time_of_day)
-    conn_dataobj = da.DataAccess("Yahoo")
-    arr_keys = ["open", "high", "low", "close", "volume", "actual_close"]
-    arr_dfs_data = conn_dataobj.get_data(arr_date_time_stamps, arr_stock_symbols,
-            arr_keys)
-    return dict(zip(arr_keys, arr_dfs_data))
+#def dic_df_data(date_start, date_end, arr_stock_symbols):
+#    '''Returns a dictionary with keys 'open', 'high, 'low', 'close',
+#    'volume', 'actual_close' and where each value is of data frame for
+#    every equity in arr_stock_symbols.'''
+#
+#
+#    date_time_of_day = dt.timedelta(hours=16)
+#    arr_date_time_stamps = du.getNYSEdays(date_start, date_end, date_time_of_day)
+#    conn_dataobj = da.DataAccess("Yahoo")
+#    arr_keys = ["open", "high", "low", "close", "volume", "actual_close"]
+#    arr_dfs_data = conn_dataobj.get_data(arr_date_time_stamps, arr_stock_symbols,
+#            arr_keys)
+#    return dict(zip(arr_keys, arr_dfs_data))
 
 
 def optimizer(date_start, date_end, arr_stock_symbols, weight_increment):
