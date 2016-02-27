@@ -3,9 +3,11 @@ from optimizer import optimizer, print_optimization, plot_performance
 import datetime as dt
 
 
-def print_and_test_optimization(dt_start, dt_end, 
+def print_and_test_optimization(
+        dt_start, dt_end, 
         arr_stock_symbols, weight_increment,
-        true_sharpe, true_vol, true_average_ret, true_cum_ret, true_allocation):
+        true_sharpe, true_vol, true_average_ret, true_cum_ret, 
+        true_allocation):
 
     def check_metrics(
             sharpe, vol, average_ret, cum_ret, allocation,
@@ -40,7 +42,8 @@ def print_and_test_optimization(dt_start, dt_end,
 
 def main(dic_inputs, dic_true_metrics):
 
-    print_and_test_optimization(dic_inputs["dt_start"], dic_inputs["dt_end"], 
+    print_and_test_optimization(
+            dic_inputs["dt_start"], dic_inputs["dt_end"], 
             dic_inputs["arr_stock_symbols"], dic_inputs["weight_increment"],
             dic_true_metrics["sharpe"], dic_true_metrics["vol"],
             dic_true_metrics["average_ret"], dic_true_metrics["cum_ret"],
@@ -78,6 +81,7 @@ if __name__ == "__main__":
             "cum_ret": 1.1960583568,
             "allocation": [0, 0, 0, 1]}
             )
+
     for dic_inputs, dic_true_metrics in zip(arr_dic_inputs,
             arr_dic_true_metrics):
         main(dic_inputs, dic_true_metrics)

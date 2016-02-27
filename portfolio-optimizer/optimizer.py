@@ -19,9 +19,9 @@ from combinatorics import order_increment_array, \
 
 
 def dic_df_data(date_start, date_end, arr_stock_symbols):
-    '''Returns a dictionary with keys open, high, low, close, volume, 
-    actual_close and where each value being a data frame for every equity 
-    in arr_stock_symbols.'''
+    '''Returns a dictionary with keys open, high, low, close, volume,
+    actual_close and where each value being a data frame for every 
+    equity in arr_stock_symbols.'''
 
 
     date_time_of_day = dt.timedelta(hours=16)
@@ -67,8 +67,8 @@ def optimizer(date_start, date_end, arr_stock_symbols, weight_increment):
 
 def gen_possible_allocations(num_equities, weight_increment):
     '''Returns a generator which yields all possible allocations 
-    a1,a2,..,an such that sum(ai) = 1. Each allocation is given as a np array.
-    weight_increment must be on form 1/q where q is an integer.
+    a1,a2,..,an such that sum(ai) = 1. Each allocation is given as a
+    np array.  weight_increment must be on form 1/q where q is an int.
     '''
 
 
@@ -111,8 +111,8 @@ def gen_possible_allocations(num_equities, weight_increment):
 
 
 def arr_portfolio_metrics(nd_portfolio_value):
-    '''Returns an array containing, given an np array of portfolio values 
-    over time, 
+    '''Returns an array containing, given an np array of portfolio 
+    values over time, 
     -The cumulative return of the total portfolio.
     -The average daily return of the total portfolio.
     -The standard deviation of the daily returns.
@@ -153,8 +153,8 @@ def print_optimization(dt_start, dt_end, arr_symbols):
 
 
 def plot_performance(dt_start, dt_end, arr_stock_symbols, nd_weights):
-    ''''Plot the performance of each individual equity together with the
-    portfolio.'''
+    ''''Plot the performance of each individual equity together with 
+    the portfolio.'''
 
 
     dic_df = dic_df_data(dt_start, dt_end, arr_stock_symbols)
