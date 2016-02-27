@@ -41,6 +41,20 @@ Thumbs.db
 #################################
 *.html
 
+# Graphs and Reports #
+#################################
+*.pdf
+
+# Auto save
+####################
+*~
+\#*#
+*.swp
+
+W1/
+W2/
+portfolio-optimizer/quizes.py
+
 # Auto save
 ####################
 *~
