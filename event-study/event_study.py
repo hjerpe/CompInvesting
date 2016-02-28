@@ -22,6 +22,22 @@ def get_event_df(dic_df_market_data, str_market_symbol, date_start, date_end):
     2 %.
     '''
 
+
+    def is_event_triggered(dt_today, dt_yest, df_pricesymb, df_price_market): 
+        '''Returns True if the event triggered else returns False.'''
+
+        is_event = False
+        symbrice_today = df_pricesymb[s_sym].ix[dt_today]
+        symbrice_yest = df_pricesymb[s_sym].ix[dt_yest]
+        marketprice_today = df_price_market.ix[dt_today]
+        marketprice_yest = df_price_market.ix[dt_yest]
+        symreturn_today = (symbrice_today / symbrice_yest)-1
+        marketreturn_today = (marketprice_today / marketprice_yest)-1
+        
+        if symreturn_today <= -0.03 and marketreturn_today > 0.02:
+            is_event = True
+        return is_event
+
     
     df_close = dic_df_market_data['close']
     df_market = df_close[str_market_symbol]
@@ -34,15 +50,10 @@ def get_event_df(dic_df_market_data, str_market_symbol, date_start, date_end):
         for dt_ind in xrange(1, len(arr_date_time_stamps)):
             dt_today = arr_date_time_stamps[dt_ind]
             dt_yest = arr_date_time_stamps[dt_ind-1]
+            is_event = is_event_triggered(dt_today, dt_yest,
+                    df_close[s_sym], df_market)
 
-            symprice_today = df_close[s_sym].ix[dt_today]
-            symprice_yest = df_close[s_sym].ix[dt_yest]
-            marketprice_today = df_market.ix[dt_today]
-            marketprice_yest = df_market.ix[dt_yest]
-            symreturn_today = (symprice_today / symprice_yest)-1
-            marketreturn_today = (marketprice_today / marketprice_yest)-1
-
-            if symreturn_today <= -0.03 and marketreturn_today > 0.02:
+            if is_event: 
                 df_events[s_sym].ix[dt_today] = 1
 
     return df_events
