@@ -46,7 +46,6 @@ def get_event_df(dic_df_market_data, str_market_symbol, date_start, date_end):
 
     date_time_of_day = dt.timedelta(hours=16)
     arr_date_time_stamps = du.getNYSEdays(date_start, date_end, date_time_of_day)
-    print(df_close.keys())
     for s_sym in df_close.keys():
         for dt_ind in xrange(1, len(arr_date_time_stamps)):
             dt_today = arr_date_time_stamps[dt_ind]
