@@ -3,7 +3,7 @@ import QSTK.qstkutil.qsdateutil as du
 import QSTK.qstkutil.DataAccess as da
 
 
-def dic_df_data(date_start, date_end, arr_stock_symbols):
+def dic_df_market_data(date_start, date_end, arr_stock_symbols):
     '''Returns a dictionary with keys 'open', 'high, 'low', 'close',
     'volume', 'actual_close' and where each value is of data frame for
     every equity in arr_stock_symbols.'''

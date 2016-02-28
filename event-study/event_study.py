@@ -1,7 +1,7 @@
 from __future__ import division
 import sys
 sys.path.append("./../get-market-data")
-from get_market_data import dic_df_data
+from get_market_data import dic_df_market_data
 
 import datetime as dt
 import numpy as np
@@ -57,7 +57,7 @@ def write_event_study_to_disk(date_start, date_end, arr_equity_symbols,
 
 
     arr_equity_symbols.append(str_market_symbol)
-    dic_df = dic_df_data(date_start, date_end, arr_equity_symbols)
+    dic_df = dic_df_market_data(date_start, date_end, arr_equity_symbols)
     df_events = get_event_df(dic_df, str_market_symbol, date_start, date_end)
     print "Creating Study"
     ep.eventprofiler(df_events, dic_df, i_lookback=20, i_lookforward=20,
