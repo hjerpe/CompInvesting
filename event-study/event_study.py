@@ -51,8 +51,8 @@ def get_event_df(dic_df_market_data, str_market_symbol, date_start, date_end):
 def write_event_study_to_disk(date_start, date_end, arr_equity_symbols, 
         str_market_symbol, pdf_to_disk_name):
     '''Writes a plot onto disk illustrating the market relative mean
-    return for occuring events in the occuring between date_start and
-    date_end for all equities in arr_equity_symbols relative to the
+    return for occuring events in between the dates date_start and 
+    date_end for all equities in arr_equity_symbols relative to the 
     market str_market_symbol.'''
 
 
