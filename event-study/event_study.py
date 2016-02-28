@@ -27,8 +27,8 @@ def get_event_df(dic_df_market_data, str_market_symbol, date_start, date_end):
         '''Returns True if the event triggered else returns False.'''
 
         is_event = False
-        symbrice_today = df_pricesymb[s_sym].ix[dt_today]
-        symbrice_yest = df_pricesymb[s_sym].ix[dt_yest]
+        symbrice_today = df_pricesymb.ix[dt_today]
+        symbrice_yest = df_pricesymb.ix[dt_yest]
         marketprice_today = df_price_market.ix[dt_today]
         marketprice_yest = df_price_market.ix[dt_yest]
         symreturn_today = (symbrice_today / symbrice_yest)-1
@@ -46,6 +46,7 @@ def get_event_df(dic_df_market_data, str_market_symbol, date_start, date_end):
 
     date_time_of_day = dt.timedelta(hours=16)
     arr_date_time_stamps = du.getNYSEdays(date_start, date_end, date_time_of_day)
+    print(df_close.keys())
     for s_sym in df_close.keys():
         for dt_ind in xrange(1, len(arr_date_time_stamps)):
             dt_today = arr_date_time_stamps[dt_ind]
