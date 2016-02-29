@@ -123,7 +123,9 @@ def print_optimization(dt_start, dt_end, arr_symbols):
     0 to 1 by 0.1 increments.'''
 
 
-    allocations, arr_metrics = optimizer(dt_start, dt_end, arr_symbols)
+    INCREMENT = 0.1
+    allocations, arr_metrics = optimizer(dt_start, dt_end, arr_symbols, 
+            INCREMENT)
     str_dt_start = dt_start.strftime("%B %d, %Y")
     str_dt_end = dt_end.strftime("%B %d, %Y")
     print("Start Date: {v}".format(v=str_dt_start))
