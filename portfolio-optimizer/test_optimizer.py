@@ -3,18 +3,15 @@ from optimizer import optimizer, print_optimization, plot_performance
 import datetime as dt
 
 
-def print_and_test_optimization(
-
-        dt_start, dt_end, 
-        arr_stock_symbols, weight_increment,
+def print_and_test_optimization(dt_start, dt_end, 
+        arr_stock_symbols, weight_increment, 
         true_sharpe, true_vol, true_average_ret, true_cum_ret, 
         true_allocation):
 
-    def check_metrics(
-
-            sharpe, vol, average_ret, cum_ret, allocation,
+    def check_metrics(sharpe, vol, average_ret, cum_ret, allocation, 
             true_sharpe, true_vol, true_average_ret, true_cum_ret, 
             true_allocation):
+
         print("deviance from truth, sharpe ratio: {b}".format(
             b=sharpe - true_sharpe))
         print("deviance from truth, vol: {b}".format(
@@ -35,6 +32,7 @@ def print_and_test_optimization(
         dt_end=str_end_dt,
         symbols=str_stock_symbols))
     allocations, arr_met = optimizer(dt_start, dt_end, arr_stock_symbols, 0.1)
+
     check_metrics(arr_met[3], arr_met[2], arr_met[1], arr_met[0], allocations,
             true_sharpe, true_vol, true_average_ret, true_cum_ret, 
             true_allocation)
