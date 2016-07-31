@@ -4,12 +4,14 @@ import datetime as dt
 
 
 def print_and_test_optimization(
+
         dt_start, dt_end, 
         arr_stock_symbols, weight_increment,
         true_sharpe, true_vol, true_average_ret, true_cum_ret, 
         true_allocation):
 
     def check_metrics(
+
             sharpe, vol, average_ret, cum_ret, allocation,
             true_sharpe, true_vol, true_average_ret, true_cum_ret, 
             true_allocation):
@@ -37,7 +39,6 @@ def print_and_test_optimization(
             true_sharpe, true_vol, true_average_ret, true_cum_ret, 
             true_allocation)
     plot_performance(dt_start, dt_end, arr_stock_symbols, allocations)
-    
 
 
 def main(dic_inputs, dic_true_metrics):
