@@ -15,7 +15,7 @@ sys.path.append("./../../Combinatorics")
 from combinatorics import order_increment_array, \
         ordered_selection_without_repetition
 sys.path.append("./../get-market-data")
-from get_market_data import dic_df_data
+from get_market_data import dic_df_market_data
 
 
 def optimizer(date_start, date_end, arr_stock_symbols, weight_increment):
@@ -23,7 +23,7 @@ def optimizer(date_start, date_end, arr_stock_symbols, weight_increment):
     arr_stock_symbols w.r.t. the sharpe ratio.'''
 
 
-    dic_df = dic_df_data(date_start, date_end, arr_stock_symbols)
+    dic_df = dic_df_market_data(date_start, date_end, arr_stock_symbols)
     nd_prices = dic_df["close"].values
     nd_prices_normalized = nd_prices / nd_prices[0, :]
 
@@ -144,7 +144,7 @@ def plot_performance(dt_start, dt_end, arr_stock_symbols, nd_weights):
     the portfolio.'''
 
 
-    dic_df = dic_df_data(dt_start, dt_end, arr_stock_symbols)
+    dic_df = dic_df_market_data(dt_start, dt_end, arr_stock_symbols)
     nd_prices = dic_df["close"].values
     nd_prices_normalized = nd_prices / nd_prices[0, :]
 
